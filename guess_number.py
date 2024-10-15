@@ -1,7 +1,7 @@
 import sys
 import random
 
-gamecount = 0
+
 #     def guess_num_game():
 #         print(greeting)
 
@@ -22,50 +22,53 @@ gamecount = 0
 
 #     greeting = f"Hello {args.name}!"
 #     guess_num_game()
+def guess_no_game():
+    gamecount = 0
 
+    def play_guess_num():
 
-def play_guess_num():
+        try:
+            player_choice = input("\nPlease pick the number 1, 2 or 3...\n\n")
 
-    try:
-        player_choice = input("\nPlease pick the number 1, 2 or 3...\n\n")
+            if player_choice not in ["1", "2", "3"]:
+                print("\nTry again...")
+                return play_guess_num()
+            else:
+                player_int = int(player_choice[0])  # Player's Number
 
-        if player_choice not in ["1", "2", "3"]:
-            print("\nTry again...")
+        except ValueError:
+            sys.exit("\nInvalid input. Please enter a valid number next time.\n")
+
+        python_int = random.randint(1, 3)  # Python's number
+
+        print(f"\nPlayer chose {player_int}.")
+
+        print(f"I was thinking of the number {python_int}.\n")
+
+        if player_int == python_int:
+            print("You win! 🎉\n")
+        else:
+            print("🐍 Python wins, you lose... 😿\n")
+
+        nonlocal gamecount
+        gamecount += 1
+        print(f"Game Count: {gamecount}")
+
+        print("\nPlay Again? 🕹️")
+
+        while True:
+            play_again = input("\nPress 'Y' for yes, or 'Q' to quit.\n")
+            if play_again.lower() not in ["y", "q"]:
+                continue
+            else:
+                break
+
+        if play_again.lower() == "y":
             return play_guess_num()
         else:
-            player_int = int(player_choice[0])  # Player's Number
+            sys.exit("\nThanks for playing! 👋")
 
-    except ValueError:
-        sys.exit("\nInvalid input. Please enter a valid number next time.\n")
-
-    python_int = random.randint(1, 3)  # Python's number
-
-    print(f"\nPlayer chose {player_int}.\n")
-
-    print(f"I was thinking of the number {python_int}.\n")
-
-    if player_int == python_int:
-        print("You win! 🎉")
-    else:
-        print("🐍 Python wins, you lose... 😿\n")
-
-    global gamecount
-    gamecount += 1
-    print(f"Game Count: {gamecount}")
-
-    print("\nPlay Again? 🕹️")
-
-    while True:
-        play_again = input("\nPress 'Y' for yes, or 'Q' to quit.\n")
-        if play_again.lower() not in ["y", "q"]:
-            continue
-        else:
-            break
-
-    if play_again.lower() == "y":
-        return play_guess_num()
-    else:
-        sys.exit("\nThanks for playing! 👋")
+    return play_guess_num()
 
 
-play_guess_num()
+guess_no_game()
