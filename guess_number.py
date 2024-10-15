@@ -35,7 +35,7 @@ def player_choose():
             return player_int
 
     except:
-        print("MAJOR ERROR!")
+        sys.exit("MAJOR ERROR! ☠️")
 
 
 def python_choose():
