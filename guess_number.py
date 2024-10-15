@@ -21,9 +21,11 @@ import random
 
 #     greeting = f"Hello {args.name}!"
 #     guess_num_game()
+
+
 def player_choose():
     try:
-        player_choice = input("Please pick the number 1, 2 or 3...\n\n ")
+        player_choice = input("Please pick the number 1, 2 or 3...\n")
 
         if player_choice not in ["1", "2", "3"]:
             print("Try again...\n")
@@ -33,7 +35,7 @@ def player_choose():
             return player_int
 
     except:
-        print("Error. You eally fucked up. Follow the instructions.")
+        print("MAJOR ERROR!")
 
 
 def python_choose():
@@ -44,8 +46,20 @@ def python_choose():
     return python_int
 
 
-player_num = player_choose()
-print(f"\nPlayer chose {player_num}.")
+def num_guess():
+    global player_num
+    global python_num
 
-python_num = python_choose()
-print(f"\nI was thinking of the number {python_num}.")
+    player_num = player_choose()
+    print(f"\nPlayer chose {player_num}.")
+
+    python_num = python_choose()
+    print(f"I was thinking of the number {python_num}.\n")
+
+    if player_num == python_num:
+        print("You win! 🎉")
+    else:
+        print("🐍 Python wins, you lose... 😿")
+
+
+num_guess()
