@@ -1,6 +1,7 @@
 import sys
 import random
 
+gamecount = 0
 #     def guess_num_game():
 #         print(greeting)
 
@@ -47,6 +48,10 @@ def play_guess_num():
         print("You win! 🎉")
     else:
         print("🐍 Python wins, you lose... 😿\n")
+
+    global gamecount
+    gamecount += 1
+    print(f"Game Count: {gamecount}")
 
     print("\nPlay Again? 🕹️")
 
