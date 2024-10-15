@@ -23,43 +23,37 @@ import random
 #     guess_num_game()
 
 
-def player_choose():
+def play_guess_num():
+
     try:
-        player_choice = input("Please pick the number 1, 2 or 3...\n")
+        player_choice = input("\nPlease pick the number 1, 2 or 3...\n\n")
 
         if player_choice not in ["1", "2", "3"]:
-            print("Try again...\n")
-            player_choose()
+            print("\nTry again...\n")
+            return play_guess_num()
         else:
-            player_int = int(player_choice[0])
-            return player_int
+            player_int = int(player_choice[0])  # Player's Number
 
     except:
         sys.exit("MAJOR ERROR! ☠️")
 
-
-def python_choose():
     python_choice = random.choices(
         "123"
     )  # random module used to pick 1 element of the string '123'
-    python_int = int(python_choice[0])  # Convert single list item to int
-    return python_int
+    python_int = int(python_choice[0])  # Python's number
+
+    def guess_check(player, python):
+
+        print(f"\nPlayer chose {player}.\n")
+
+        print(f"I was thinking of the number {python}.\n")
+
+        if player == python:
+            print("You win! 🎉")
+        else:
+            print("🐍 Python wins, you lose... 😿\n")
+
+    guess_check(player_int, python_int)
 
 
-def num_guess():
-    global player_num
-    global python_num
-
-    player_num = player_choose()
-    print(f"\nPlayer chose {player_num}.")
-
-    python_num = python_choose()
-    print(f"I was thinking of the number {python_num}.\n")
-
-    if player_num == python_num:
-        print("You win! 🎉")
-    else:
-        print("🐍 Python wins, you lose... 😿")
-
-
-num_guess()
+play_guess_num()
