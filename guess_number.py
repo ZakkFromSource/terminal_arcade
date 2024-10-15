@@ -24,6 +24,8 @@ import random
 #     guess_num_game()
 def guess_no_game():
     gamecount = 0
+    player_wins = 0
+    python_wins = 0
 
     def play_guess_num():
 
@@ -45,16 +47,36 @@ def guess_no_game():
 
         print(f"I was thinking of the number {python_int}.\n")
 
-        if player_int == python_int:
-            print("You win! 🎉\n")
-        else:
-            print("🐍 Python wins, you lose... 😿\n")
+        def win_rate():
+            nonlocal player_wins
+            nonlocal python_wins
+            win_percentage = player_wins / (player_wins + python_wins) * 100
+            return win_percentage
+
+        def game_result(player_int, python_int):
+
+            if player_int == python_int:
+                nonlocal player_wins
+                player_wins += 1
+                return "You win! 🎉\n"
+            else:
+                nonlocal python_wins
+                python_wins += 1
+                return "🐍 Python wins, you lose... 😿\n"
+
+        decide_victor = game_result(player_int, python_int)
+        print(decide_victor)
 
         nonlocal gamecount
         gamecount += 1
-        print(f"Game Count: {gamecount}")
+        print(f"Game Count: {gamecount}\n")
 
-        print("\nPlay Again? 🕹️")
+        print(f"Player Wins: {player_wins}\n")
+
+        player_win_percentage = win_rate()
+        print(f"Player win percentage: {player_win_percentage:.2f}%\n")
+
+        print("Play Again? 🕹️")
 
         while True:
             play_again = input("\nPress 'Y' for yes, or 'Q' to quit.\n")
