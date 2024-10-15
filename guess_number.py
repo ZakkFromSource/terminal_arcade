@@ -29,31 +29,38 @@ def play_guess_num():
         player_choice = input("\nPlease pick the number 1, 2 or 3...\n\n")
 
         if player_choice not in ["1", "2", "3"]:
-            print("\nTry again...\n")
+            print("\nTry again...")
             return play_guess_num()
         else:
             player_int = int(player_choice[0])  # Player's Number
 
-    except:
-        sys.exit("MAJOR ERROR! ☠️")
+    except ValueError:
+        sys.exit("\nInvalid input. Please enter a valid number next time.\n")
 
-    python_choice = random.choices(
-        "123"
-    )  # random module used to pick 1 element of the string '123'
-    python_int = int(python_choice[0])  # Python's number
+    python_int = random.randint(1, 3)  # Python's number
 
-    def guess_check(player, python):
+    print(f"\nPlayer chose {player_int}.\n")
 
-        print(f"\nPlayer chose {player}.\n")
+    print(f"I was thinking of the number {python_int}.\n")
 
-        print(f"I was thinking of the number {python}.\n")
+    if player_int == python_int:
+        print("You win! 🎉")
+    else:
+        print("🐍 Python wins, you lose... 😿\n")
 
-        if player == python:
-            print("You win! 🎉")
+    print("\nPlay Again? 🕹️")
+
+    while True:
+        play_again = input("\nPress 'Y' for yes, or 'Q' to quit.\n")
+        if play_again.lower() not in ["y", "q"]:
+            continue
         else:
-            print("🐍 Python wins, you lose... 😿\n")
+            break
 
-    guess_check(player_int, python_int)
+    if play_again.lower() == "y":
+        return play_guess_num()
+    else:
+        sys.exit("\nThanks for playing! 👋")
 
 
 play_guess_num()
