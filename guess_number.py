@@ -3,8 +3,6 @@ import random
 
 """TO DO
 
-Add Player name entry and personalize the game.
-
 Make Qutting guess_number.py and rps.py return to arcade.py menu.
 
 Make Press 'X' to exit game from arcade menu.
@@ -12,7 +10,7 @@ Make Press 'X' to exit game from arcade menu.
 """
 
 
-def guess_no_game(name="Player One"):
+def guess_num_game(name="Player One"):
     gamecount = 0
     player_wins = 0
     python_wins = 0
@@ -110,4 +108,4 @@ if __name__ == "__main__":
     # Parse the arguments
     args = parser.parse_args()
 
-    guess_game = guess_no_game(args.name)
+    guess_game = guess_num_game(args.name)
