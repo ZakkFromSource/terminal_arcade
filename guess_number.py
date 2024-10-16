@@ -12,10 +12,12 @@ Make Press 'X' to exit game from arcade menu.
 """
 
 
-def guess_no_game():
+def guess_no_game(name="Player One"):
     gamecount = 0
     player_wins = 0
     python_wins = 0
+    greeting = f"\nHello {args.name}!"
+    print(greeting)
 
     def play_guess_num():
 
@@ -37,7 +39,7 @@ def guess_no_game():
 
         python_int = random.randint(1, 3)  # Python's number between 1-3
 
-        print(f"\nPlayer chose {player_int}.")
+        print(f"\n{args.name} chose {player_int}.")
 
         print(f"I was thinking of the number {python_int}.\n")
 
@@ -52,11 +54,11 @@ def guess_no_game():
             if player_int == python_int:
                 nonlocal player_wins
                 player_wins += 1
-                return "You win! 🎉\n"
+                return f"{args.name} wins! 🎉\n"
             else:
                 nonlocal python_wins
                 python_wins += 1
-                return "🐍 Python wins, you lose... 😿\n"
+                return f"🐍 Python wins, you lose... Unlucky {args.name}. 😞\n"
 
         decide_victor = game_result(player_int, python_int)
         print(decide_victor)
@@ -65,10 +67,10 @@ def guess_no_game():
         gamecount += 1
         print(f"Game Count: {gamecount}\n")
 
-        print(f"Player Wins: {player_wins}\n")
+        print(f"{args.name}'s Total Wins: {player_wins}\n")
 
         player_win_percentage = win_rate()
-        print(f"Player win percentage: {player_win_percentage:.2f}%\n")
+        print(f"Current Win Percentage: {player_win_percentage:.2f}%\n")
 
         print("Play Again? 🕹️")
 
@@ -82,31 +84,30 @@ def guess_no_game():
         if play_again.lower() == "y":
             return play_guess_num()
         else:
-            sys.exit("\nThanks for playing! 👋")
+            print(f"\nThanks for playing {args.name}! 😊")
+            sys.exit("Goodbye for now. 👋")
 
     return play_guess_num()
 
 
-guess_no_game()
+if __name__ == "__main__":
+    import argparse
 
+    # Create parser using argparse module
+    parser = argparse.ArgumentParser(
+        description="Creates a personalised game experience."
+    )
 
-#     def guess_num_game():
-#         print(greeting)
+    # Add arguments to parser
+    parser.add_argument(
+        "-n",
+        "--name",
+        metavar="NAME",
+        required=True,
+        help="Recieve player name, making the game personalized.",
+    )
 
-# if __name__ == "__main__":
-#     import argparse
+    # Parse the arguments
+    args = parser.parse_args()
 
-#     # Create parser using argparse module
-#     parser = argparse.ArgumentParser(
-#         description="Creates a personalised game experience."
-#     )
-
-#     # Add arguments to parser
-#     parser.add_argument("name", help="The name of the player.")
-
-#     # Parse the arguments
-#     args = parser.parse_args()
-
-
-#     greeting = f"Hello {args.name}!"
-#     guess_num_game()
+    guess_game = guess_no_game(args.name)
