@@ -19,15 +19,15 @@ def arcade(player_name: str = "Player One"):  # Store args.name in a variable
             print(f"\nHello {player_name}, Welcome back to the Arcade menu!\n")
 
         menu_choice = input(
-            """\n Please choose a game:
+            """\n Please choose an option:
                             1 = Guess My Number
                             2 = Rock Paper Scissors
                             
-                            Or press "x" to exit the Arcade\n\n"""
+                            Or type "x" to exit the Arcade\n\n"""
         )
 
         if menu_choice.lower() not in ["1", "2", "x"]:
-            print("Invalid input, try again.\n")
+            print("\nInvalid input, try again.\n")
             return arcade(player_name)
 
         welcome_back = True
