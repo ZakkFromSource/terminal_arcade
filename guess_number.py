@@ -1,20 +1,12 @@
 import sys
 import random
 
-"""TO DO
 
-Make Qutting guess_number.py and rps.py return to arcade.py menu.
-
-Make Press 'X' to exit game from arcade menu.
-
-"""
-
-
-def guess_num_game(name="Player One"):
+def guess_num_game(player_name: str):
     gamecount = 0
     player_wins = 0
     python_wins = 0
-    greeting = f"\nHello {args.name}!"
+    greeting = f"\nHello {player_name}, Let's play!"
     print(greeting)
 
     def play_guess_num():
@@ -37,7 +29,7 @@ def guess_num_game(name="Player One"):
 
         python_int = random.randint(1, 3)  # Python's number between 1-3
 
-        print(f"\n{args.name} chose {player_int}.")
+        print(f"\n{player_name} chose {player_int}.")
 
         print(f"I was thinking of the number {python_int}.\n")
 
@@ -52,11 +44,11 @@ def guess_num_game(name="Player One"):
             if player_int == python_int:
                 nonlocal player_wins
                 player_wins += 1
-                return f"{args.name} wins! 🎉\n"
+                return f"{player_name} wins! 🎉\n"
             else:
                 nonlocal python_wins
                 python_wins += 1
-                return f"🐍 Python wins, you lose... Unlucky {args.name}. 😞\n"
+                return f"🐍 Python wins, you lose... Unlucky {player_name}. 😞\n"
 
         decide_victor = game_result(player_int, python_int)
         print(decide_victor)
@@ -65,7 +57,7 @@ def guess_num_game(name="Player One"):
         gamecount += 1
         print(f"Game Count: {gamecount}\n")
 
-        print(f"{args.name}'s Total Wins: {player_wins}\n")
+        print(f"{player_name}'s Total Wins: {player_wins}\n")
 
         player_win_percentage = win_rate()
         print(f"Current Win Percentage: {player_win_percentage:.2f}%\n")
@@ -82,7 +74,7 @@ def guess_num_game(name="Player One"):
         if play_again.lower() == "y":
             return play_guess_num()
         else:
-            print(f"\nThanks for playing {args.name}! 😊")
+            print(f"\nThanks for playing {player_name}! 😊")
             sys.exit("Goodbye for now. 👋")
 
     return play_guess_num()
