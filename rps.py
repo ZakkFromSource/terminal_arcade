@@ -3,15 +3,15 @@ import random
 from enum import Enum
 
 
-def rps(player_name: str):
+def rps(player_name: str = "Player One", from_arcade: bool = False):
     game_count = 0
     player_wins = 0
     python_wins = 0
 
     def play_rps():
-        nonlocal player_name
-        nonlocal player_wins
-        nonlocal python_wins
+        nonlocal player_name, player_wins, python_wins
+        # nonlocal player_wins
+        # nonlocal python_wins
 
         class RPS(Enum):
             ROCK = 1
@@ -27,10 +27,7 @@ def rps(player_name: str):
             return play_rps()
 
         player = int(playerchoice)
-
-        computerchoice = random.choice("123")
-
-        computer = int(computerchoice)
+        computer = random.randint(1, 3)
 
         print(
             f"\n{player_name}, you chose {str(RPS(player)).replace('RPS.', '').title()}."
@@ -56,9 +53,7 @@ def rps(player_name: str):
                 python_wins += 1
                 return f"🐍 Python wins!\nSorry, {player_name}.. 😢"
 
-        game_result = decide_winner(player, computer)
-
-        print(game_result)
+        print(decide_winner(player, computer))
 
         nonlocal game_count
         game_count += 1
@@ -81,10 +76,10 @@ def rps(player_name: str):
         else:
             print("\n🎉🎉🎉🎉")
             print("Thank you for playing!\n")
-            if __name__ == "__main__":
-                sys.exit(f"Bye {player_name}! 👋")
+            if from_arcade:
+                return  # Return control to arcade menu if launched from arcade
             else:
-                return
+                sys.exit(f"Bye {player_name}! 👋")
 
     return play_rps()
 

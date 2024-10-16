@@ -1,6 +1,6 @@
 import sys
-import guess_number
-import rps
+from guess_number import guess_num_game
+from rps import rps
 
 """TO DO
 
@@ -11,12 +11,12 @@ Make Qutting guess_number.py and rps.py return to arcade.py menu.
 # Arcade Menu where you can access all the arcade games or exit.
 
 
-def arcade(player_name: str):  # Store args.name in a variable
+def arcade(player_name: str = "Player One"):  # Store args.name in a variable
+    welcome_back = False
 
-    greeting = f"\nHello {player_name}, Welcome to the Arcade!\n"
-    print(greeting)
-
-    def arcade_menu():
+    while True:
+        if welcome_back == True:
+            print(f"\nHello {player_name}, Welcome back to the Arcade menu!\n")
 
         menu_choice = input(
             """\n Please choose a game:
@@ -27,20 +27,18 @@ def arcade(player_name: str):  # Store args.name in a variable
         )
 
         if menu_choice.lower() not in ["1", "2", "x"]:
-            return arcade_menu()
+            print("Invalid input, try again.\n")
+            return arcade(player_name)
 
+        welcome_back = True
+
+        if menu_choice.lower() == "1":
+            guess_num_game(player_name, from_arcade=True)  # Pass the flag
+        elif menu_choice.lower() == "2":
+            rps(player_name, from_arcade=True)  # Pass the flag
         else:
-            if menu_choice.lower() == "1":
-                return guess_number.guess_num_game(
-                    player_name
-                )  # Launches guess_number.py
-            elif menu_choice.lower() == "2":
-                return rps.rps(player_name)  # Launches rps.py
-            else:
-                print(f"\nThanks for playing {player_name}. 🤖")
-                sys.exit("See you again soon! 🚀")
-
-    return arcade_menu()
+            print(f"\nThanks for playing {player_name}. 🤖")
+            sys.exit("See you again soon! 🚀")
 
 
 if __name__ == "__main__":
@@ -62,5 +60,7 @@ if __name__ == "__main__":
 
     # Parse the arguments
     args = parser.parse_args()
+
+    print(f"\nHello {args.name}, Welcome to the Arcade! 👾\n")
 
     start_arcade = arcade(args.name)

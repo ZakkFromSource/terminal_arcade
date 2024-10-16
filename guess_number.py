@@ -2,7 +2,7 @@ import sys
 import random
 
 
-def guess_num_game(player_name: str):
+def guess_num_game(player_name: str = "Player One", from_arcade: bool = False):
     gamecount = 0
     player_wins = 0
     python_wins = 0
@@ -25,12 +25,14 @@ def guess_num_game(player_name: str):
                 player_int = int(player_choice[0])  # Player's Number
 
         except ValueError:
-            sys.exit("\nInvalid input. Please enter a valid number next time.\n")
+            if from_arcade:
+                return  # Don't exit if launched from arcade, just return
+            else:
+                sys.exit("\nInvalid input. Please enter a valid number.\n")
 
         python_int = random.randint(1, 3)  # Python's number between 1-3
 
         print(f"\n{player_name} chose {player_int}.")
-
         print(f"I was thinking of the number {python_int}.\n")
 
         def win_rate():  # Player Win Percentage calculator
@@ -50,18 +52,15 @@ def guess_num_game(player_name: str):
                 python_wins += 1
                 return f"🐍 Python wins, you lose... Unlucky {player_name}. 😞\n"
 
-        decide_victor = game_result(player_int, python_int)
-        print(decide_victor)
+        print(game_result(player_int, python_int))
 
         nonlocal gamecount
         gamecount += 1
         print(f"Game Count: {gamecount}\n")
-
         print(f"{player_name}'s Total Wins: {player_wins}\n")
-
-        player_win_percentage = win_rate()
-        print(f"Current Win Percentage: {player_win_percentage:.2f}%\n")
-
+        print(f"Current Win Percentage: {win_rate():.2f}%")
+        # player_win_percentage = win_rate()
+        # print(f"Current Win Percentage: {player_win_percentage:.2f}%\n")
         print("Play Again? 🕹️")
 
         while True:
@@ -75,11 +74,15 @@ def guess_num_game(player_name: str):
             return play_guess_num()
         else:
             print(f"\nThanks for playing {player_name}! 😊")
-            sys.exit("Goodbye for now. 👋")
+            if from_arcade:
+                return  # Return control to arcade if launched from arcade
+            else:
+                sys.exit("Goodbye for now. 👋")
 
     return play_guess_num()
 
 
+# If the script is run directly (not imported)
 if __name__ == "__main__":
     import argparse
 
@@ -101,3 +104,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     guess_game = guess_num_game(args.name)
+    guess_game()
